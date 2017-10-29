@@ -63,6 +63,11 @@ public final class AppInsightsReporter extends ScheduledReporter {
     }
 
     @Override
+    public void stop() {
+        telemetryClient.flush();
+    }
+
+    @Override
     public void report(SortedMap<String, Gauge> gauges, SortedMap<String, Counter> counters,
                        SortedMap<String, Histogram> histograms, SortedMap<String, Meter> meters, SortedMap<String, Timer> timers) {
         LOG.debug("Received report of {} gauges, {} counters, {} histograms, {} meters and {} timers",
